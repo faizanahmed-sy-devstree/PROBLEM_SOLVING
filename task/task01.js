@@ -20,7 +20,7 @@ function getHighAchievers() {
   for (const grade of schoolData) {
     for (const cls of grade.classes) {
       for (const student of cls.students) {
-        console.log(student);
+        // console.log(student);
         if (student.cgpa >= 3.7) {
           result.push(student);
         }
@@ -31,7 +31,7 @@ function getHighAchievers() {
 
   // Intern implementation here
 }
-console.log(getHighAchievers());
+// console.log(getHighAchievers());
 
 /**
  * TASK 2: Calculate Grade Average
@@ -47,8 +47,31 @@ console.log(getHighAchievers());
  * @returns {number} The average CGPA of that grade.
  */
 function getGradeAverage(gradeName) {
-  // Intern implementation here
+  let totalCgpa = 0;
+  let studentCount = 0;
+
+  const selectedGrade = schoolData.find((item) => item.grade === gradeName);
+
+  if (!selectedGrade) {
+    return 0;
+  }
+
+  selectedGrade.classes.forEach((cls) => {
+    cls.students.forEach((student) => {
+      totalCgpa += student.cgpa;
+      studentCount++;
+    });
+  });
+
+  if (studentCount === 0) {
+    return 0;
+  }
+
+  return totalCgpa / studentCount;
 }
+
+// getGradeAverage("Grade 1");
+console.log(getGradeAverage("Grade 10"));
 
 /**
  * TASK 3: Teacher-Class Directory

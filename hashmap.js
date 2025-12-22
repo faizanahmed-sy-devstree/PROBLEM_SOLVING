@@ -13,12 +13,15 @@ function task1(str = "hello") {
 
   for (let i = 0; i < str.length; i++) {
     const char = str[i];
-    if(!map.has(char)){
-        map.set(char, 1);
+    if (map.has(char)) {
+      const value = map.get(char) ?? 0;
+      map.set(char, value + 1);
     } else {
-        map.set(char, 1);
+      map.set(char, 1);
     }
   }
+
+  return map;
 }
 
 console.log("Task 1:", task1());
@@ -28,7 +31,17 @@ console.log("Task 1:", task1());
 /**
  * Check if the given character exists in the string
  */
-function task2(str = "javascript", char = "a") {}
+function task2(str = "javascript", char = "a") {
+  const map = new Map();
+  for (let i = 0; i < str.length; i++) {
+    map.set(str[i], true);
+  }
+
+  if (map.has(char)) {
+    return true;
+  }
+  return false;
+}
 
 console.log("Task 2:", task2());
 
@@ -37,7 +50,21 @@ console.log("Task 2:", task2());
 /**
  * Count how many times each word appears
  */
-function task3(str = "hi hello hi") {}
+function task3(str = "hi hello hi faizan") {
+  const map = new Map();
+  const words = str.split(" ");
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+
+    if (map.has(word)) {
+      map.set(word, map.get(word) + 1);
+    } else {
+      map.set(word, 1);
+    }
+  }
+
+  return map;
+}
 
 console.log("Task 3:", task3());
 
