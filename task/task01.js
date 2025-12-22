@@ -90,8 +90,26 @@ console.log(getGradeAverage("Grade 10"));
  * @returns {Array<Object>} List of teachers with their assigned class names.
  */
 function getTeacherDirectory() {
-  // Intern implementation here
+  const result = [];
+
+  for (const grade of schoolData) {
+    for (const classroom of grade.classes) {
+      console.log("asdasd", classroom);
+      for (const teacher of classroom.teachers) {
+        let newTeacherObj = {};
+        newTeacherObj.firstName = teacher.firstName;
+        newTeacherObj.lastName = teacher.lastName;
+        newTeacherObj.className = classroom.className;
+        result.push(newTeacherObj);
+      }
+      // console.log("asdasd", newTeacherObj);
+    }
+  }
+
+  return result;
 }
+
+console.log(getTeacherDirectory());
 
 /**
  * TASK 4: Search Student by Enrollment
