@@ -16,8 +16,28 @@ const { schoolData } = require("./school-data");
  * @returns {Array<Object>} List of student objects who meet the criteria.
  */
 function getHighAchievers() {
-  // Intern implementation here
+  const result = [];
+
+  schoolData.forEach((grade) => {
+    const classes = grade.classes;
+
+    classes.forEach((classData) => {
+      const students = classData.students;
+
+      students.forEach((student) => {
+        const cgpa = student.cgpa;
+
+        if (cgpa >= 3.7) {
+          result.push(student);
+        }
+      });
+    });
+  });
+
+  return result;
 }
+
+console.log(getHighAchievers());
 
 /**
  * TASK 2: Calculate Grade Average
@@ -33,7 +53,12 @@ function getHighAchievers() {
  * @returns {number} The average CGPA of that grade.
  */
 function getGradeAverage(gradeName) {
-  // Intern implementation here
+  schoolData.forEach((grade) => {
+    if (grade.grade === gradeName) {
+      const classes = grade.classes;
+      let totalcgpa = 0;
+    }
+  });
 }
 
 /**
@@ -53,8 +78,26 @@ function getGradeAverage(gradeName) {
  * @returns {Array<Object>} List of teachers with their assigned class names.
  */
 function getTeacherDirectory() {
-  // Intern implementation here
+  const result = [];
+
+  schoolData.forEach((grade) => {
+    grade.classes.forEach((classData) => {
+
+      classData.teachers.forEach((teacher) => {
+        
+        result.push({
+          firstName: teacher.firstName,
+          lastName: teacher.lastName,
+          className: classData.className,
+        });
+      });
+    });
+  });
+
+  return result;
 }
+
+console.log(getTeacherDirectory());
 
 /**
  * TASK 4: Search Student by Enrollment
