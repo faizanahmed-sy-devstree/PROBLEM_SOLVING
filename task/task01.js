@@ -16,8 +16,22 @@ const { schoolData } = require("./school-data");
  * @returns {Array<Object>} List of student objects who meet the criteria.
  */
 function getHighAchievers() {
+  const result = [];
+  for (const grade of schoolData) {
+    for (const cls of grade.classes) {
+      for (const student of cls.students) {
+        console.log(student);
+        if (student.cgpa >= 3.7) {
+          result.push(student);
+        }
+      }
+    }
+  }
+  return result;
+
   // Intern implementation here
 }
+console.log(getHighAchievers());
 
 /**
  * TASK 2: Calculate Grade Average
