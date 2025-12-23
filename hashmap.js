@@ -73,7 +73,29 @@ console.log("Task 3:", task3());
 /**
  * Return the first character that appears only once
  */
-function task4(str = "aabbcdd") {}
+function task4(str = "aabccdd") {
+  let map = new Map();
+  let result = "";
+
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    if (map.has(char)) {
+      map.set(char, map.get(char) + 1);
+    } else {
+      map.set(char, 1);
+    }
+  }
+
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+
+    if (map.get(char) === 1) {
+      return char;
+    }
+  }
+
+  return "";
+}
 
 console.log("Task 4:", task4());
 
@@ -82,7 +104,37 @@ console.log("Task 4:", task4());
 /**
  * Check if both strings contain same characters
  */
-function task5(str1 = "listen", str2 = "silent") {}
+function task5(str1 = "listen", str2 = "silent") {
+  const map = new Map();
+
+  for (let i = 0; i < str1.length; i++) {
+    const char = str1[i];
+    if (map.has(char)) {
+      map.set(char, map.get(char) + 1);
+    } else {
+      map.set(char, 1);
+    }
+  }
+
+  for (let i = 0; i < str2.length; i++) {
+    const char = str2[i];
+    if (map.has(char)) {
+      map.set(char, map.get(char) - 1);
+    } else {
+      return false;
+    }
+  }
+
+  const values = Array.from(map.values());
+
+  for (let i = 0; i < values.length; i++) {
+    if (values[i] != 0) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 console.log("Task 5:", task5());
 
