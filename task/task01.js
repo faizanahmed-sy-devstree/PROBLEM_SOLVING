@@ -16,8 +16,28 @@ const { schoolData } = require("./school-data");
  * @returns {Array<Object>} List of student objects who meet the criteria.
  */
 function getHighAchievers() {
-  // Intern implementation here
+  const result = [];
+
+  schoolData.forEach((grade) => {
+    const classes = grade.classes;
+
+    classes.forEach((classData) => {
+      const students = classData.students;
+
+      students.forEach((student) => {
+        const cgpa = student.cgpa;
+
+        if (cgpa >= 3.7) {
+          result.push(student);
+        }
+      });
+    });
+  });
+
+  return result;
 }
+
+console.log(getHighAchievers());
 
 /**
  * TASK 2: Calculate Grade Average
@@ -33,8 +53,28 @@ function getHighAchievers() {
  * @returns {number} The average CGPA of that grade.
  */
 function getGradeAverage(gradeName) {
-  // Intern implementation here
+  let totalcgpa = 0;
+  let studentCount = 0;
+
+  schoolData.forEach((grade) => {
+    if (grade.grade === gradeName) {
+      const classes = grade.classes;
+
+      classes.forEach((classData) => {
+        const student = classData.students;
+
+        student.forEach((student) => {
+          totalcgpa = totalcgpa + student.cgpa;
+          studentCount++;
+        });
+      });
+    }
+  });
+  const average = totalcgpa / studentCount;
+  return Number(average.toFixed(2));
 }
+
+// console.log(getGradeAverage("Grade 1"));
 
 /**
  * TASK 3: Teacher-Class Directory
@@ -53,8 +93,24 @@ function getGradeAverage(gradeName) {
  * @returns {Array<Object>} List of teachers with their assigned class names.
  */
 function getTeacherDirectory() {
-  // Intern implementation here
+  const result = [];
+
+  schoolData.forEach((grade) => {
+    grade.classes.forEach((classData) => {
+      classData.teachers.forEach((teacher) => {
+        result.push({
+          firstName: teacher.firstName,
+          lastName: teacher.lastName,
+          className: classData.className,
+        });
+      });
+    });
+  });
+
+  return result;
 }
+
+// console.log(getTeacherDirectory());
 
 /**
  * TASK 4: Search Student by Enrollment
@@ -69,8 +125,18 @@ function getTeacherDirectory() {
  * @returns {Object|null} The student object or null.
  */
 function findStudentByEnrollment(enrollmentNo) {
-  // Intern implementation here
+  for (const grade of schoolData) {
+    for (const classes of grade.classes) {
+      for (const student of classes.students) {
+        if (student.enrollmentNo === enrollmentNo) {
+          return student;
+        }
+      }
+    }
+  }
 }
+
+// console.log(findStudentByEnrollment(10293847));
 
 /**
  * TASK 5: Class Size Report
@@ -88,8 +154,28 @@ function findStudentByEnrollment(enrollmentNo) {
  * @returns {Object} An object mapping class names to student totals.
  */
 function getClassSizeReport() {
-  // Intern implementation here
+  let report = {};
+
+  schoolData.forEach((grade) => {
+    const classes = grade.classes;
+
+    classes.forEach((classData) => {
+      const student = classData.students;
+      let className = classData.className;
+      let studentCount = 0;
+
+      student.forEach(() => {
+        studentCount = studentCount + 1;
+      });
+
+      report[className] = studentCount;
+    });
+  });
+
+  return report;
 }
+
+// console.log(getClassSizeReport());
 
 /**
  * TASK 6: Find Potential Valedictorians
